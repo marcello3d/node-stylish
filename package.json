@@ -1,0 +1,26 @@
+{
+  "author": "Marcello Bastéa-Forte",
+  "name": "stylish",
+  "version": "0.1.0",
+  "description": "Stylus middleware for connect",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/marcello3d/node-stylish.git"
+  },
+  "dependencies": {
+      "stylus":"0.32.0"
+  },
+  "devDependencies": {
+      "mocha":"1.8.1"
+  },
+  "keywords": [
+    "stylus",
+    "middleware",
+    "connect"
+  ],
+  "license": "zlib"
+}

@@ -1,0 +1,41 @@
+node-stylish
+============
+
+Simple node.js [stylus](https://github.com/learnboost/stylus) middleware for 
+[connect](https://github.com/senchalabs/connect) (or [express](http://expressjs.com/)) that doesn't write files to disk.
+
+Install
+------
+
+    npm install stylish
+
+Examples
+--------
+
+Simple `stylus.middleware()` drop-in replacement:
+
+    app.use(stylish(__dirname + '/public'))
+
+Extended example with stylus compression and an example of customizing the renderer (using 
+[nib](https://github.com/visionmedia/nib/) in this example):
+
+    app.use(stylish({
+        src:__dirname + '/public',
+        compress: true,
+        setup: function(renderer) {
+            return renderer.use(nib())
+        }
+    }))
+
+For production use, turn caching on:
+
+    app.use(stylish({
+        src:__dirname + '/public',
+        compress: true,
+        cache: true
+    }))
+
+
+License
+-------
+zlib license ([LICENSE]).
