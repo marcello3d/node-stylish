@@ -27,7 +27,18 @@ Extended example with stylus compression and an example of customizing the rende
         }
     }))
 
-For production use, turn caching on:
+By default, stylish watches files (and dependencies) for changes. You can add a callback to learn when a file changes:
+
+    app.use(stylish({
+        src:__dirname + '/public',
+        compress: true,
+        watchCallback: function(filename) {
+            // do something clever, like tell the client to reload css
+        }
+    }))
+
+
+For production use, turn caching on (this caches the computed css in memory and disables file watching):
 
     app.use(stylish({
         src:__dirname + '/public',
