@@ -7,8 +7,8 @@ var fs = require('fs')
 module.exports = function(options) {
     options = typeof options == 'string' ? {src:options} : (options || {})
     var src = options.src
-    var watch = !options.watch
-    var cache = (options.cache || watch) && {}
+    var watch = !options.cache
+    var cache = {}
     var watchCallback = options.watchCallback
 
     function watchForChanges(imports, stylusPath) {
@@ -25,7 +25,7 @@ module.exports = function(options) {
         })
     }
     function getCss(stylusPath, callback) {
-        if (cache && cache[stylusPath]) return callback && callback(null, cache[stylusPath])
+        if (cache[stylusPath]) return callback && callback(null, cache[stylusPath])
         fs.readFile(stylusPath, 'utf8', function(error, stylusSource) {
             if (error) return callback && callback(error)
             var stylusOptions = {
@@ -39,7 +39,7 @@ module.exports = function(options) {
             renderer.render(function(error, css) {
                 if (error) return callback && callback(error)
                 if (watch) watchForChanges(stylusOptions._imports, stylusPath)
-                if (cache) cache[stylusPath] = css
+                cache[stylusPath] = css
                 callback && callback(null, css)
             })
         })
