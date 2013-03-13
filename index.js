@@ -16,35 +16,53 @@ module.exports = function(options) {
             return fs.watch(filename.path, { persistent:false }, function() {
                 delete cache[stylusPath]
                 getCss(stylusPath, urlPath)
-                watchers.forEach(function(watcher) { watcher.close() })
+                watchers.forEach(function(watcher) { 
+                    watcher.close()
+                })
                 watchCallback && watchCallback(urlPath)
             })
         })
     }
     function getCss(stylusPath, urlPath, callback) {
-        if (cache[stylusPath]) return callback && callback(null, cache[stylusPath])
+        if (cache[stylusPath]) {
+            return callback && callback(null, cache[stylusPath])
+        }
         fs.readFile(stylusPath, 'utf8', function(error, stylusSource) {
-            if (error) return callback && callback(error)
+            if (error) {
+                return callback && callback(error)
+            }
             var stylusOptions = {
                 filename:stylusPath,
                 compress:options.compress,
                 linenos:options.linenos
             }
-            if (watch) stylusOptions._imports = [{path:stylusPath}]
+            if (watch) {
+                stylusOptions._imports = [{path:stylusPath}]
+            }
             var renderer = stylus(stylusSource, stylusOptions)
-            if (options.setup) renderer = options.setup(renderer, stylusSource, stylusPath)
+            if (options.setup) {
+                renderer = options.setup(renderer, stylusSource, stylusPath)
+            }
             renderer.render(function(error, css) {
-                if (error) return callback && callback(error)
-                if (watch) watchForChanges(stylusOptions._imports, stylusPath, urlPath)
+                if (error) {
+                    return callback && callback(error)
+                }
+                if (watch) {
+                    watchForChanges(stylusOptions._imports, stylusPath, urlPath)
+                }
                 cache[stylusPath] = css
                 callback && callback(null, css)
             })
         })
     }
     return function stylus(request, response, next){
-        if ('GET' != request.method && 'HEAD' != request.method) return next()
+        if ('GET' != request.method && 'HEAD' != request.method) {
+            return next()
+        }
         var urlPath = url.parse(request.url).pathname
-        if (!/\.(css|styl)$/.test(urlPath)) return next()
+        if (!/\.(css|styl)$/.test(urlPath)) {
+            return next()
+        }
         var stylusPath = path.normalize(path.join(src, urlPath.replace(/\.css$/, '.styl')))
 
         // prevent access outside of src dir
@@ -52,7 +70,9 @@ module.exports = function(options) {
             return next()
         }
         getCss(stylusPath, urlPath, function(error, css) {
-            if (error) return next(error)
+            if (error) {
+                return next(error)
+            }
             response.header('Content-type', 'text/css')
             response.send(css)
         })
