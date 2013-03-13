@@ -11,20 +11,17 @@ module.exports = function(options) {
     var cache = {}
     var watchCallback = options.watchCallback
 
-    function watchForChanges(imports, stylusPath) {
-        var reloading = false
+    function watchForChanges(imports, stylusPath, urlPath) {
         var watchers = imports.map(function(filename) {
             return fs.watch(filename.path, { persistent:false }, function() {
-                if (reloading) return
-                reloading = true
                 delete cache[stylusPath]
-                getCss(stylusPath)
+                getCss(stylusPath, urlPath)
                 watchers.forEach(function(watcher) { watcher.close() })
-                watchCallback && watchCallback(stylusPath.substring(src.length))
+                watchCallback && watchCallback(urlPath)
             })
         })
     }
-    function getCss(stylusPath, callback) {
+    function getCss(stylusPath, urlPath, callback) {
         if (cache[stylusPath]) return callback && callback(null, cache[stylusPath])
         fs.readFile(stylusPath, 'utf8', function(error, stylusSource) {
             if (error) return callback && callback(error)
@@ -38,7 +35,7 @@ module.exports = function(options) {
             if (options.setup) renderer = options.setup(renderer, stylusSource, stylusPath)
             renderer.render(function(error, css) {
                 if (error) return callback && callback(error)
-                if (watch) watchForChanges(stylusOptions._imports, stylusPath)
+                if (watch) watchForChanges(stylusOptions._imports, stylusPath, urlPath)
                 cache[stylusPath] = css
                 callback && callback(null, css)
             })
@@ -49,7 +46,7 @@ module.exports = function(options) {
         var urlPath = url.parse(request.url).pathname
         if (!/\.(css|styl)$/.test(urlPath)) return next()
         var stylusPath = path.join(src, urlPath.replace(/\.css$/, '.styl'))
-        getCss(stylusPath, function(error, css) {
+        getCss(stylusPath, urlPath, function(error, css) {
             if (error) return next(error)
             response.header('Content-type', 'text/css')
             response.send(css)
