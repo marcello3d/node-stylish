@@ -45,7 +45,12 @@ module.exports = function(options) {
         if ('GET' != request.method && 'HEAD' != request.method) return next()
         var urlPath = url.parse(request.url).pathname
         if (!/\.(css|styl)$/.test(urlPath)) return next()
-        var stylusPath = path.join(src, urlPath.replace(/\.css$/, '.styl'))
+        var stylusPath = path.normalize(path.join(src, urlPath.replace(/\.css$/, '.styl')))
+
+        // prevent access outside of src dir
+        if (stylusPath.indexOf(src) !== 0) {
+            return next()
+        }
         getCss(stylusPath, urlPath, function(error, css) {
             if (error) return next(error)
             response.header('Content-type', 'text/css')
