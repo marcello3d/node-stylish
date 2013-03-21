@@ -16,7 +16,7 @@ module.exports = function(options) {
             return fs.watch(filename.path, { persistent:false }, function() {
                 delete cache[stylusPath]
                 getCss(stylusPath, urlPath)
-                watchers.forEach(function(watcher) { 
+                watchers.forEach(function(watcher) {
                     watcher.close()
                 })
                 watchCallback && watchCallback(urlPath)
