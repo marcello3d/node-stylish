@@ -19,34 +19,38 @@ Simple `stylus.middleware()` drop-in replacement:
 Extended example with stylus compression and an example of customizing the renderer (using 
 [nib](https://github.com/visionmedia/nib/) in this example):
 
-    app.use(stylish({
-        src:__dirname + '/public',
-        compress: true,
-        setup: function(renderer) {
-            return renderer.use(nib())
-        }
-    }))
+```js
+app.use(stylish({
+    src:__dirname + '/public',
+    compress: true,
+    setup: function(renderer) {
+        return renderer.use(nib())
+    }
+}))
+```
 
 By default, stylish watches files (and dependencies) for changes. You can add a callback to learn when a file changes:
 
-    app.use(stylish({
-        src:__dirname + '/public',
-        compress: true,
-        watchCallback: function(filename) {
-            // do something clever, like tell the client to reload css
-        }
-    }))
-
+```js
+app.use(stylish({
+    src:__dirname + '/public',
+    compress: true,
+    watchCallback: function(error, filename) {
+        // do something clever, like tell the client to reload css
+    }
+}))
+```
 
 For production use, turn caching on (this caches the computed css in memory and disables file watching):
 
-    app.use(stylish({
-        src:__dirname + '/public',
-        compress: true,
-        cache: true
-    }))
-
+```js
+app.use(stylish({
+    src:__dirname + '/public',
+    compress: true,
+    cache: true
+}))
+```
 
 License
 -------
-zlib license ([LICENSE]).
+zlib license [LICENSE](LICENSE).

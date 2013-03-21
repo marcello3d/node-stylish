@@ -15,11 +15,12 @@ module.exports = function(options) {
         var watchers = imports.map(function(filename) {
             return fs.watch(filename.path, { persistent:false }, function() {
                 delete cache[stylusPath]
-                getCss(stylusPath, urlPath)
+                getCss(stylusPath, urlPath, function(error) {
+                    watchCallback && watchCallback(error, urlPath)
+                })
                 watchers.forEach(function(watcher) { 
                     watcher.close()
                 })
-                watchCallback && watchCallback(urlPath)
             })
         })
     }
