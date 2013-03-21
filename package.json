@@ -5,7 +5,7 @@
   "description": "Stylus middleware for connect",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/bin/mocha"
+      "test":"tap test/*"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,11 @@
       "stylus":"0.32.1"
   },
   "devDependencies": {
-      "mocha":"1.8.1"
+      "tap":"0.4.0",
+      "tape":"0.3.0",
+      "connect": "2.7.3",
+      "supertest":"0.5.1",
+      "express": "3.1.0"
   },
   "keywords": [
     "stylus",
