@@ -1,4 +1,4 @@
-node-stylish
+node-stylish [![build status](https://secure.travis-ci.org/marcello3d/node-stylish.png)](http://travis-ci.org/marcello3d/node-stylish)
 ============
 
 Simple node.js [stylus](https://github.com/learnboost/stylus) middleware for 
