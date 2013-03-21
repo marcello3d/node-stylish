@@ -71,6 +71,10 @@ module.exports = function(options) {
         }
         getCss(stylusPath, urlPath, function(error, css) {
             if (error) {
+                // if file isn't found, continue
+                if (error.code === 'ENOENT') {
+                    return next()
+                }
                 return next(error)
             }
             response.header('Content-type', 'text/css')
