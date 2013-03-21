@@ -26,11 +26,11 @@ module.exports = function(options) {
     }
     function getCss(stylusPath, urlPath, callback) {
         if (cache[stylusPath]) {
-            return callback && callback(null, cache[stylusPath])
+            return callback(null, cache[stylusPath])
         }
         fs.readFile(stylusPath, 'utf8', function(error, stylusSource) {
             if (error) {
-                return callback && callback(error)
+                return callback(error)
             }
             var stylusOptions = {
                 filename:stylusPath,
@@ -46,13 +46,13 @@ module.exports = function(options) {
             }
             renderer.render(function(error, css) {
                 if (error) {
-                    return callback && callback(error)
+                    return callback(error)
                 }
                 if (watch) {
                     watchForChanges(stylusOptions._imports, stylusPath, urlPath)
                 }
                 cache[stylusPath] = css
-                callback && callback(null, css)
+                callback(null, css)
             })
         })
     }
