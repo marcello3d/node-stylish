@@ -16,7 +16,7 @@ module.exports = function(options) {
             return fs.watch(filename.path, { persistent:false }, function() {
                 delete cache[stylusPath]
                 getCss(stylusPath, urlPath)
-                watchers.forEach(function(watcher) { 
+                watchers.forEach(function(watcher) {
                     watcher.close()
                 })
                 watchCallback && watchCallback(urlPath)
@@ -71,6 +71,9 @@ module.exports = function(options) {
         }
         getCss(stylusPath, urlPath, function(error, css) {
             if (error) {
+                if (error.code === 'ENOENT') {
+                    return next();
+                }
                 return next(error)
             }
             response.header('Content-type', 'text/css')
