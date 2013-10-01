@@ -6,7 +6,7 @@ var fs = require('fs')
 
 module.exports = function(options) {
     options = typeof options == 'string' ? {src:options} : (options || {})
-    var src = options.src
+    var src = path.normalize(options.src)
     var watch = !options.cache
     var cache = {}
     var watchCallback = options.watchCallback
