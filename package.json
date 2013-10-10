@@ -5,21 +5,19 @@
   "description": "Stylus middleware for connect",
   "main": "index.js",
   "scripts": {
-      "test":"tap test/*"
+      "test":"tape test/*.js"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/marcello3d/node-stylish.git"
   },
   "dependencies": {
-      "stylus":"0.32.1"
+      "stylus":"0.38.0"
   },
   "devDependencies": {
-      "tap":"0.4.0",
-      "tape":"0.3.0",
-      "connect": "2.7.3",
-      "supertest":"0.5.1",
-      "express": "3.1.0"
+      "tape":"1.1.1",
+      "supertest":"0.8.0",
+      "express": "3.4.0"
   },
   "keywords": [
     "stylus",
