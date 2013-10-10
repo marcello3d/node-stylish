@@ -12,7 +12,7 @@
     "url": "git://github.com/marcello3d/node-stylish.git"
   },
   "dependencies": {
-      "stylus":"0.32.1"
+      "stylus":"0.38.0"
   },
   "devDependencies": {
       "tape":"1.1.1",
