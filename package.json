@@ -11,13 +11,14 @@
     "type": "git",
     "url": "git://github.com/marcello3d/node-stylish.git"
   },
-  "dependencies": {
-      "stylus":"0.38.0"
+  "peerDependencies": {
+      "stylus":"~0.40.3"
   },
   "devDependencies": {
-      "tape":"1.1.1",
-      "supertest":"0.8.0",
-      "express": "3.4.0"
+      "tape":"2.3.0",
+      "stylus":"0.40.3",
+      "supertest":"0.8.2",
+      "express": "3.4.5"
   },
   "keywords": [
     "stylus",
