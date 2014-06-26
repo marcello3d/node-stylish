@@ -56,11 +56,11 @@ module.exports = function(options) {
                 renderer = options.setup(renderer, stylusSource, stylusPath)
             }
             renderer.render(function(error, css) {
-                if (error) {
-                    return callback(error)
-                }
                 if (watch) {
                     watchForChanges(stylusOptions._imports, stylusPath, urlPath)
+                }
+                if (error) {
+                    return callback(error)
                 }
                 cache[stylusPath] = css
                 callback(null, css)
