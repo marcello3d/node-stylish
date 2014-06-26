@@ -1,5 +1,6 @@
 var stylus = require('stylus')
 
+var EventEmitter = require('events').EventEmitter
 var filewatcher = require('filewatcher')
 var url = require('url')
 var path = require('path')
@@ -11,6 +12,8 @@ module.exports = function(options) {
     var src = path.normalize(options.src)
     var watch = !options.cache
     var cache = {}
+    var processing = {}
+    var emitter = new EventEmitter
     var watchCallback = options.watchCallback
 
     function watchForChanges(files, stylusPath, urlPath) {
@@ -39,6 +42,21 @@ module.exports = function(options) {
         if (cache[stylusPath]) {
             return callback(null, cache[stylusPath])
         }
+        emitter.once(stylusPath, callback)
+        if (!processing[stylusPath]) {
+            processing[stylusPath] = true
+            process(stylusPath, urlPath, function (error, css) {
+                delete processing[stylusPath]
+                if (error) {
+                    debug("error rendering %s: %s", stylusPath, error)
+                } else {
+                    debug("built %s", stylusPath)
+                }
+                emitter.emit(stylusPath, error, css)
+            })
+        }
+    }
+    function process(stylusPath, urlPath) {
         fs.readFile(stylusPath, 'utf8', function(error, stylusSource) {
             if (error) {
                 return callback(error)
