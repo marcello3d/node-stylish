@@ -11,6 +11,10 @@
     "type": "git",
     "url": "git://github.com/marcello3d/node-stylish.git"
   },
+  "dependencies": {
+      "debug":"1.0.2",
+      "filewatcher":"1.1.1"
+  },
   "peerDependencies": {
       "stylus":">=0.40.0"
   },

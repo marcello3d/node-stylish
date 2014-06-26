@@ -1,8 +1,10 @@
 var stylus = require('stylus')
 
+var filewatcher = require('filewatcher')
 var url = require('url')
 var path = require('path')
 var fs = require('fs')
+var debug = require('debug')('stylish')
 
 module.exports = function(options) {
     options = typeof options == 'string' ? {src:options} : (options || {})
@@ -11,17 +13,26 @@ module.exports = function(options) {
     var cache = {}
     var watchCallback = options.watchCallback
 
-    function watchForChanges(imports, stylusPath, urlPath) {
-        var watchers = imports.map(function(filename) {
-            return fs.watch(filename.path, { persistent:false }, function() {
-                delete cache[stylusPath]
-                getCss(stylusPath, urlPath, function(error) {
-                    watchCallback && watchCallback(error, urlPath)
-                })
-                watchers.forEach(function(watcher) { 
-                    watcher.close()
-                })
+    function watchForChanges(files, stylusPath, urlPath) {
+        var watcher = filewatcher()
+        files.forEach(function(file) {
+            watcher.add(file.path)
+        })
+        watcher.once('change', function(file) {
+            debug("rebuilding %s due to change in %s", urlPath, file)
+            watcher.removeAll()
+            delete cache[stylusPath]
+            getCss(stylusPath, urlPath, function(error) {
+                if (watchCallback) {
+                     watchCallback(error, urlPath)
+                }
             })
+        })
+
+        watcher.once('fallback', function(limit) {
+            debug('Ran out of file handles after watching %s files.', limit)
+            debug('Falling back to polling which uses more CPU.')
+            debug('Run ulimit -n 10000 to increase the limit for open files.')
         })
     }
     function getCss(stylusPath, urlPath, callback) {
