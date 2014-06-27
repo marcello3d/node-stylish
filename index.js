@@ -56,7 +56,7 @@ module.exports = function(options) {
             })
         }
     }
-    function process(stylusPath, urlPath) {
+    function process(stylusPath, urlPath, callback) {
         fs.readFile(stylusPath, 'utf8', function(error, stylusSource) {
             if (error) {
                 return callback(error)
