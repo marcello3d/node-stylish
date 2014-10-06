@@ -26,8 +26,8 @@ test('basic', function(t) {
         .get('/test.css')
         .end(function(err, res) {
             t.equal(res.statusCode, 200)
-            t.equal(res.headers['content-type'], 'text/css')
-            t.equal(res.text, '.foo{color:#f00;}\n.foo .bar{border-radius:10px}\n')
+            t.equal(res.headers['content-type'], 'text/css; charset=utf-8')
+            t.equal(res.text, '.foo{color:#f00;}.foo .bar{border-radius:10px}')
             t.end()
         })
 })
