@@ -1,7 +1,7 @@
-node-stylish [![build status](https://secure.travis-ci.org/marcello3d/node-stylish.png)](http://travis-ci.org/marcello3d/node-stylish)
+node-stylish [![npm version](https://badge.fury.io/js/stylish.svg)](http://badge.fury.io/js/stylish) [![Build Status](https://travis-ci.org/marcello3d/node-stylish.svg?branch=master)](https://travis-ci.org/marcello3d/node-stylish)
 ============
 
-Simple node.js [stylus](https://github.com/learnboost/stylus) middleware for 
+Simple node.js [stylus](https://github.com/learnboost/stylus) middleware for
 [connect](https://github.com/senchalabs/connect) (or [express](http://expressjs.com/)) that doesn't write files to disk.
 
 Install
@@ -16,7 +16,7 @@ Simple `stylus.middleware()` drop-in replacement:
 
     app.use(stylish(__dirname + '/public'))
 
-Extended example with stylus compression and an example of customizing the renderer (using 
+Extended example with stylus compression and an example of customizing the renderer (using
 [nib](https://github.com/visionmedia/nib/) in this example):
 
 ```js
