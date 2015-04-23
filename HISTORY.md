@@ -1,4 +1,4 @@
-# UNRELEASED
+# 0.6.0 (2015-04-22)
 
   * Don't depend on express.header, just use connect.setHeader
 

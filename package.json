@@ -1,28 +1,28 @@
 {
   "author": "Marcello Bastéa-Forte",
   "name": "stylish",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Stylus middleware for connect",
   "main": "index.js",
   "scripts": {
-      "test":"tape test/*.js"
+    "test": "tape test/*.js"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/marcello3d/node-stylish.git"
   },
   "dependencies": {
-      "debug":"2.0.0",
-      "filewatcher":"1.1.1"
+    "debug": "2.0.0",
+    "filewatcher": "1.1.1"
   },
   "peerDependencies": {
-      "stylus":">=0.40.0"
+    "stylus": ">=0.40.0"
   },
   "devDependencies": {
-      "tape":"3.0.0",
-      "stylus":"0.49.1",
-      "supertest":"0.14.0",
-      "express": "4.9.5"
+    "tape": "3.0.0",
+    "stylus": "0.49.1",
+    "supertest": "0.14.0",
+    "express": "4.9.5"
   },
   "keywords": [
     "stylus",
