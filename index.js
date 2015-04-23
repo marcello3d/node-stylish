@@ -107,7 +107,7 @@ module.exports = function(options) {
                 }
                 return next(error)
             }
-            response.header('Content-type', 'text/css')
+            response.setHeader('Content-type', 'text/css')
             response.send(css)
         })
     }
